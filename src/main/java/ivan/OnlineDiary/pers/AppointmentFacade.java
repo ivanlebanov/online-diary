@@ -29,10 +29,19 @@ public class AppointmentFacade extends AbstractFacade<Appointment> {
         return em;
     }
 
+    /**
+     * Constructor for the appointment facade
+     */
     public AppointmentFacade() {
         super(Appointment.class);
     }
  
+    /**
+     * Fetching appointments where the user has been selected to participate
+     * @param username - unique username - not being used
+     * @param user - user object
+     * @return List of Appointments or null
+     */
     public List<Appointment> findAppointmentsByUsername(String username, User user) {
         try {
             TypedQuery<Appointment> query = em.createQuery(

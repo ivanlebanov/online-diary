@@ -27,10 +27,18 @@ public class UserFacade extends AbstractFacade<User> {
         return em;
     }
 
+    /**
+     * A constructor of the User facade
+     */
     public UserFacade() {
         super(User.class);
     }
 
+    /**
+     * A method to fetch user by username from the database
+     * @param username - unique username
+     * @return User object or null
+     */
     public User findUsersByUsername(String username) {
         try {
             TypedQuery<User> query = em.createQuery(
@@ -41,6 +49,12 @@ public class UserFacade extends AbstractFacade<User> {
         }
     }
         
+    /**
+     * A method to fetch user by given credentials from the database
+     * @param username - unique username
+     * @param password - password string
+     * @return User object or null
+     */
     public User findUserByCredentials(String username, String password) {
         try {
             TypedQuery<User> query = em.createQuery(
@@ -51,6 +65,12 @@ public class UserFacade extends AbstractFacade<User> {
         }
     }
     
+    /**
+     * A method to fetch user by given email from the database.
+     * Used mostly internally for validation purpose.
+     * @param email - email of the user
+     * @return User object or null
+     */
     public User findUsersByEmail(String email) {
         try {
             TypedQuery<User> query = em.createQuery(
@@ -61,6 +81,11 @@ public class UserFacade extends AbstractFacade<User> {
         }
     }
     
+    /**
+     * Fetch user by given username from the database.
+     * @param username - unique username
+     * @return User object or null
+     */
     public User findUserIDByUsername(String username) {
         try {
             TypedQuery<User> query = em.createQuery(

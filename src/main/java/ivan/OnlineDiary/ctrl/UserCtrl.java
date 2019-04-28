@@ -32,18 +32,34 @@ public class UserCtrl {
     private List<User> allUsers;
     private String confirm;
 
+    /**
+     * Getter for confirmation string
+     * @return
+     */
     public String getConfirm() {
         return confirm;
     }
 
+    /**
+     * Setter for confirmation string
+     * @param confirm
+     */
     public void setConfirm(String confirm) {
         this.confirm = confirm;
     }
 
+    /**
+     * Getter for a newly created user coming from the user interface
+     * @return a user object
+     */
     public User getNewUser() {
         return newUser;
     }
 
+    /**
+     * Setter used for the creating of new user
+     * @param newUser user object
+     */
     public void setNewUser(User newUser) {
         this.newUser = newUser;
     }
@@ -51,15 +67,28 @@ public class UserCtrl {
     @EJB
     private UserService us;
 
+    /**
+     * Call service for all users
+     * @return
+     */
     public List<User> getAllUsers() {
         allUsers = us.findAllUsers();
         return allUsers;
     }
+
+    /**
+     * Get id by username
+     * @param username
+     * @return an Id of the user
+     */
     public Long getIdByUser(String username) {
         return us.findUserIDByUsername(username).getId();
     }
     
-
+    /**
+     * Add a new user. Used on user page
+     * @return string - the page to be redirected to
+     */
     public String insertUser() {
         if (us.createNewUser(newUser, confirm) == true) {
             return "login.xhtml?faces-redirect=true";
@@ -68,11 +97,16 @@ public class UserCtrl {
         }
     }
 
+    /**
+     * Login a user using the service
+     * If unsuccessful  an error message would be shown
+     * @return string - the page to be redirected to
+     */
     public String loginUser() {
         User user = us.validateLogin(newUser.getUsername(), newUser.getPassword());
         FacesContext context = FacesContext.getCurrentInstance();
         if (user != null) {
-            // Set session variable to current user obj
+            // add user
             context.getExternalContext().getSessionMap().put("user", user);
             return "index.xhtml?faces-redirect=true";
         } else {
@@ -81,6 +115,10 @@ public class UserCtrl {
         }
     }
 
+    /**
+     * Invalidate user session and redirect to login page
+     * @return string - the page to be redirected to
+     */
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "login.xhtml?faces-redirect=true";

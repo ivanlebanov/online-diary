@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -43,68 +42,141 @@ public class Appointment implements Serializable {
     private String description;
     private String owner;
     
+    /**
+     * An appointment entity representing an event with one of many users
+     * 
+     */
     public Appointment() {
         this.users = new ArrayList<>();
     }
+
+    /**
+     * Getter for all users of the appointment
+     * @return list of users
+     */
     public List<User> getUsers() {
         return users;
     }
 
+    /**
+     * Sets the users of an appointment
+     * @param users list of users
+     */
     public void setUsers(List<User> users) {
         this.users = users;
     }
 
+    /**
+     * Getter for a title
+     * @return the title of an appointment
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Setter for a title
+     * @param title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * Getter for description
+     * Not currently used in the UI
+     * @return the description of the appointment
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+    * Getter for description
+    * Not currently used in the UI
+    * @param description the new description of the appointment
+    */
     public void setDescription(String description) {
         this.description = description;
     }
+
+    /**
+     * Getter of the owner and creator of an appointment
+     * @return Owner and creator of an event - user's username
+     */
     public String getOwner() {
         return owner;
     }
 
+    /**
+     * Setter of the owner and creator of an appointment
+     * @param owner
+     */
     public void setOwner(String owner) {
         this.owner = owner;
     }
 
+    /**
+     * Appointments don't have an endDate.
+     * Getter of starting date.
+     * @return date
+     */
     public Date getStartDate() {
         return startDate;
     }
 
+    /**
+     * Setter of starting date.
+     * @param startDate - a new date to be set
+     */
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
+    /**
+     * Getter for startTime - DATE format
+     * @return the date
+     */
     public Date getStartTime() {
         return startTime;
     }
 
+    /**
+     * Setter for startTime - DATE format
+     * @param startTime newly set start time
+     */
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
+    /**
+     * Getter for endTime - DATE format
+     * @return the date
+     */
     public Date getEndTime() {
         return endTime;
     }
 
+    /**
+     * Setter for endTime - DATE format
+     * @param endTime a new date for end date
+     */
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
+    /**
+     * 
+     * @return the appointment id
+     */
     public Long getId() {
         return appointment_id;
     }
 
+    /**
+     * Setter for appointment id
+     * @param appointment_id
+     */
     public void setId(Long appointment_id) {
         this.appointment_id = appointment_id;
     }

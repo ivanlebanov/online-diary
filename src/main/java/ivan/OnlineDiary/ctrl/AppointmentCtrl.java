@@ -38,36 +38,77 @@ public class AppointmentCtrl {
     @EJB
     private AppointmentService as;
 
+    /**
+     * Find all appointments - calling the findAllAppointments service
+     * @return list of appointments
+     */
     public List<Appointment> getAllAppointments() {
         allAppointments = as.findAllAppointments();
         return allAppointments;
     }
+
+    /**
+     * Find all appointments by username - calling the service
+     * @param username
+     * @return list of appointments
+     */
     public List<Appointment> findAppointmentsByUsername(String username) {
         userAppointments = as.findAppointmentsByUsername(username);
         return userAppointments;
     }
+
+    /**
+     * Getter for new appointment
+     * @return
+     */
     public Appointment getNewAppointment() {
         return newAppointment;
     }
 
+    /**
+     * Setter for new appointment
+     * @param newAppointment
+     */
     public void setNewAppointment(Appointment newAppointment) {
         this.newAppointment = newAppointment;
     }
     
-     public Set<User> getUsers() {
+    /**
+     * @deprecated
+     * @return set of users
+     */
+    public Set<User> getUsers() {
         return users;
     }
 
+    /**
+     * @deprecated
+     * @param users set of users
+     */
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+
+    /**
+     * Getting selected users
+     * @return array of selected users in UI
+     */
     public String[] getSelectedUsers() {
         return selectedUsers;
     }
 
+    /**
+     * Setting selected users
+     * @param users
+     */
     public void setSelectedUsers(String[] users) {
         this.selectedUsers = users;
     }
+
+    /**
+     * Inserting appointment
+     * @return string to redirect to page or null
+     */
     public String insertAppointment() {
         if (as.createNewAppointment(newAppointment, selectedUsers) == true) {
             return "index.xhtml?faces-redirect=true";
@@ -75,6 +116,12 @@ public class AppointmentCtrl {
             return null;
         }
     } 
+
+    /**
+     * Calling appointment Service to delete
+     * @param id id to be deleted
+     * @return string to redirect to page or null
+     */
     public String cancel(Long id) {
         if (as.cancelAppointment(id) == true) {
             return "index.xhtml?faces-redirect=true";

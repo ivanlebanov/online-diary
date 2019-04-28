@@ -28,13 +28,16 @@ public class AppointmentService {
     private AppointmentFacade af;
     @EJB
     private UserFacade uf;
-    
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
-    
+  /** 
+  * Create an appointment
+  * 
+  * This method creates a new appointment.
+  * N.B. clash between users has not been implemented
+  * @param a send a valid appointment object
+  * @param users - an array of all users selected as participants
+  * @return always true
+  */
     public Boolean createNewAppointment(Appointment a, String[] users) {
-        // Set the owner of appointment to current logged in user 
         FacesContext context = FacesContext.getCurrentInstance();
         User owner = (User) context.getExternalContext().getSessionMap().get("user");
         String username = owner.getUsername();
@@ -47,34 +50,46 @@ public class AppointmentService {
         af.create(a);
         return true;
     }
+   /** 
+  * Delete an appointment
+  * 
+  * This method deletes an appointment. To implement validations in the future.
+  * @param id a valid appointment id
+  * @return true after successful deletion
+  */
     public Boolean cancelAppointment(Long id) {
-        // Set the owner of appointment to current logged in user 
-        FacesContext context = FacesContext.getCurrentInstance();
-        User owner = (User) context.getExternalContext().getSessionMap().get("user");
-        String username = owner.getUsername();
-        Appointment a = new Appointment();
-        a = af.find(id);
+        Appointment a = af.find(id);
         af.remove(a);
         return true;
     }
-    
+  /** 
+  * Check for clashes
+  * 
+  * This method is unfinished.
+  * @param a a valid appointment object
+  * @param u user to be checked
+  * @return true if there is a clash
+  */
     public Boolean checkClash(Appointment a, User u) {
-        Boolean appointmentClash = false;
+        Boolean appointmentClash = true;
         if (uf.findUsersByUsername(u.getUsername()) == null && uf.findUsersByEmail(u.getEmail()) == null) {
             appointmentClash = false;
         }
-        if (uf.findUsersByUsername(u.getUsername()) != null) {
-            FacesContext.getCurrentInstance().addMessage("createID:username", new FacesMessage("Username already exists"));
-        }
-        if (uf.findUsersByEmail(u.getEmail()) != null) {
-            FacesContext.getCurrentInstance().addMessage("createID:email", new FacesMessage("Email already exists"));
-        }
+
         return appointmentClash;
     }
-
+  /** 
+  * List all appointments
+  * @return a list of appointments
+  */
     public List<Appointment> findAllAppointments() {
         return af.findAll();
     }
+  /** 
+  * List all appointments for a user
+  * @param username unique username of the user
+  * @return a list of appointments
+  */
     public List<Appointment> findAppointmentsByUsername(String username) {
         return af.findAppointmentsByUsername(username, uf.findUsersByUsername(username));
     }
