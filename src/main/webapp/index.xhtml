@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Online Diary</title>
+        <h:outputStylesheet name="css/style.css" />
+    </h:head>
+    <h:body>
+        <ui:include src="templates/nav.xhtml"/>
+        <section>
+            <div class="container">
+               <div class="row row-title">
+                    <div class="third">
+                        <h2>Your appointments</h2>
+                    </div>
+                    <div class="third"></div>
+                    <div class="third"><h:link value="create a new appointment" outcome="appointment.xhtml" class="btn btn-white soft_shadow"/></div>
+                </div>
+                
+                                <div class="row">
+                          
+                    <ui:repeat var="app" value="#{appointmentCtrl.findAppointmentsByUsername(user.username)}" varStatus="status">
+                        <div class="third">
+                            <div class="panel panel-list">
+                                <h3>#{app.title}</h3>
+                                Date: 
+                                <h:outputText value="#{app.startDate}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText> <br/>
+                                From
+                                <h:outputText value="#{app.startTime}" >
+                                    <f:convertDateTime pattern="HH:mm" />
+                                </h:outputText>
+                                to 
+                                <h:outputText value="#{app.endTime}" >
+                                    <f:convertDateTime pattern="HH:mm" />
+                                </h:outputText>
+                                <br/>
+                                People:
+                                <ul>
+                                    <ui:repeat var="person" value="#{app.getUsers()}" varStatus="status">
+                                        <li>#{person.firstName} #{person.lastName}</li>
+                                    </ui:repeat>           
+                                </ul>
+                     <h:form>
+                        <h:message for="cancelbtn" class="error"></h:message>
+                        <h:commandButton id="cancelbtn" class="soft_shadow" action="#{appointmentCtrl.cancel(app.id)}" value="cancel"/>
+                    </h:form>
+                            </div>
+                        </div>
+                    </ui:repeat> 
+                </div>
+                
+                <div class="row row-title">
+                    <div class="third">
+                        <h2>Contact List</h2>
+                    </div>
+                    <div class="third"></div>
+                    <div class="third"><h:link value="create a new user" outcome="user.xhtml" class="btn btn-white soft_shadow"/></div>
+                </div>
+                <div class="row">
+                    <ui:repeat var="user" value="#{userCtrl.allUsers}" varStatus="status">
+                        <div class="third">
+                            <div class="panel panel-list">
+                                <h3>Username: #{user.username}</h3>
+                                <p>
+                                    First name: #{user.firstName} <br/>
+                                    Last name: #{user.lastName} <br/>
+                                    Phone: <a href="tel:#{user.phone}" class="inline">#{user.phone}</a> <br/>
+                                    Email: <a href="mailto:#{user.email}" class="inline">#{user.email}</a> <br/>
+                                    Address: #{user.address} <br/>
+                                    Postcode: #{user.address}
+                                </p>
+                                <h:link value="view profile" class="btn" outcome="profile.xhtml?user=#{user.username}" />
+
+                            </div>
+                        </div>
+                    </ui:repeat> 
+                </div>
+            </div>
+        </section>
+
+    </h:body>
+</html>
+

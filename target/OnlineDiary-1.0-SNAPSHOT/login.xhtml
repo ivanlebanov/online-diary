@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Login - Online diary </title>
+        <h:outputStylesheet name="css/style.css" />
+    </h:head>
+    <h:body>
+        <div class="vertical">
+            <div class="container">
+                <div class="panel soft_shadow">
+                    <h:form>
+                        <h1>Login</h1>
+                        <div class="row">
+                            <div class="half">
+                                <h:outputLabel for="username" value="Username:"/>
+                                <h:inputText id="username" value="#{userCtrl.newUser.username}"/>
+                            </div>
+                            <div class="half">
+                                <h:outputLabel for="pass" value="Password:"/>
+                                <h:inputSecret id="pass" value="#{userCtrl.newUser.password}"/>
+                            </div>
+                        </div>
+                        <h:message for="logbttn" class="error"></h:message>
+                        <h:commandButton id="logbttn" class="soft_shadow" action="#{userCtrl.loginUser()}" value="login"/>
+                        <h:link value="register" class="page-link" outcome="user.xhtml?faces-redirect=true" />
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
+
