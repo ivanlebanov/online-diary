@@ -1,2 +1,2 @@
 # OnlineDiary
-An online diary system created using Java EE.
+If you experience any problems, email up719931@myport.ac.uk
