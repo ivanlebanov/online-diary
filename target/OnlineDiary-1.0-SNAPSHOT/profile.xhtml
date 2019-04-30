@@ -10,15 +10,34 @@
     </h:head>
     <h:body>
         <ui:include src="templates/nav.xhtml"/>
+        <section style="padding:30px 0;background: #2193b0;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #6dd5ed, #2193b0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+">
+            <div class="container">
+                <div class="row">
+                    <div class="half" style="color: #fff">
+                        <h1>#{user.firstName} #{user.lastName}</h1>
+                        <p>
+                            Phone: <a href="tel:#{user.phone}" class="inline" style="color: #fff">#{user.phone}</a>
+                            Email: <a href="mailto:#{user.email}" class="inline" style="color: #fff">#{user.email}</a> <br/>
+                            Address: #{user.address} <br/>
+                            Postcode: #{user.address}
+                        </p>
+                    </div>
+                    <div class="half">
+                        <div style="float: right;margin-top: 30px;">
+                            <a href="tel:#{user.phone}" class="btn btn-white" style="margin-right: 15px;">call</a>
+                            <a href="mailto:#{user.email}" class="btn btn-white">email</a>  
+                        </div>
+
+                    </div>            
+                </div>
+            </div>
+        </section>
         <section>
             <div class="container">
-               <div class="row row-title">
-                    <div class="third">
-                        <h2>Your appointments</h2>
-                    </div>
-                    <div class="third"></div>
-                    <div class="third"><h:link value="create a new appointment" outcome="appointment.xhtml" class="btn btn-white soft_shadow"/></div>
-                </div>
+                        <h2>Appointments</h2>
                 
                                 <div class="row">
 
